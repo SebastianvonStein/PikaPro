@@ -114,6 +114,13 @@ enum PikaText {
     static let textHistoryRemove = NSLocalizedString("history.remove", comment: "Remove from history")
     static let textHistoryClear = NSLocalizedString("history.clear", comment: "Clear history")
 
+    // Contrast picker
+    static let textPickerToggle = NSLocalizedString("picker.toggle", comment: "Toggle contrast picker")
+    static let textPickerTitle = NSLocalizedString("picker.title", comment: "Contrast Picker")
+    static let textPickerOverlay = NSLocalizedString("picker.overlay", comment: "Show compliance overlay")
+    static let textPickerRestrict = NSLocalizedString("picker.restrict", comment: "Restrict to compliant colors")
+    static let textPickerSaturation = NSLocalizedString("picker.saturation", comment: "Saturation")
+
     // Palettes
     static let textPaletteNew = NSLocalizedString("palette.new", comment: "New palette…")
     static let textPaletteRename = NSLocalizedString("palette.rename", comment: "Rename palette")
@@ -306,6 +313,7 @@ enum PikaText {
     static let textUrlGroupAppearance = NSLocalizedString("help.url.group.appearance", comment: "Appearance")
     static let textUrlGroupCompliance = NSLocalizedString("help.url.group.compliance", comment: "Compliance")
     static let textUrlGroupPreview = NSLocalizedString("help.url.group.preview", comment: "Preview")
+    static let textUrlGroupPicker = NSLocalizedString("help.url.group.picker", comment: "Contrast Picker")
 
     // URL Trigger Descriptions — Pick/Copy in Format
     static let textUrlPickForegroundFormat = NSLocalizedString(
@@ -353,6 +361,11 @@ enum PikaText {
     static let textUrlPreviewShow = NSLocalizedString("help.url.preview.show", comment: "Show colour preview")
     static let textUrlPreviewHide = NSLocalizedString("help.url.preview.hide", comment: "Hide colour preview")
     static let textUrlPreviewToggle = NSLocalizedString("help.url.preview.toggle", comment: "Toggle colour preview")
+
+    // URL Trigger Descriptions — Contrast picker
+    static let textUrlPickerShow = NSLocalizedString("help.url.picker.show", comment: "Show the contrast picker")
+    static let textUrlPickerHide = NSLocalizedString("help.url.picker.hide", comment: "Hide the contrast picker")
+    static let textUrlPickerToggle = NSLocalizedString("help.url.picker.toggle", comment: "Toggle the contrast picker")
 
     // URL Trigger Descriptions — Appearance
     static let textUrlAppearanceLight = NSLocalizedString("help.url.appearance.light", comment: "Force light appearance")

@@ -113,4 +113,8 @@ extension Defaults.Keys {
     static let historyDrawerVisible = Key<Bool>("historyDrawerVisible", default: false)
     static let showColorPreview = Key<Bool>("showColorPreview", default: false)
     static let showCompliance = Key<Bool>("showCompliance", default: true)
+    static let pickerDrawerVisible = Key<Bool>("pickerDrawerVisible", default: false)
+    static let pickerTarget = Key<ComplianceTarget>("pickerTarget", default: .wcagAANormal)
+    static let pickerOverlay = Key<Bool>("pickerOverlay", default: true)
+    static let pickerRestrict = Key<Bool>("pickerRestrict", default: false)
 }

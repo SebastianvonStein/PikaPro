@@ -572,3 +572,30 @@
 
 /* Window Settings */
 "preferences.window.title" = "Ustawienia okna";
+
+/* Toggle contrast picker */
+"picker.toggle" = "Przełącz próbnik kontrastu";
+
+/* Contrast Picker */
+"picker.title" = "Próbnik kontrastu";
+
+/* Show compliance overlay */
+"picker.overlay" = "Pokaż nakładkę zgodności";
+
+/* Restrict to compliant colours */
+"picker.restrict" = "Ogranicz do zgodnych kolorów";
+
+/* Saturation */
+"picker.saturation" = "Nasycenie";
+
+/* Show the contrast picker */
+"help.url.picker.show" = "Pokaż próbnik kontrastu";
+
+/* Hide the contrast picker */
+"help.url.picker.hide" = "Ukryj próbnik kontrastu";
+
+/* Toggle the contrast picker */
+"help.url.picker.toggle" = "Przełącz próbnik kontrastu";
+
+/* Contrast Picker */
+"help.url.group.picker" = "Próbnik kontrastu";

@@ -37,14 +37,45 @@ extension NSColor {
         let fgRGB = toRGBAComponents()
         let bgRGB = color.toRGBAComponents()
 
-        // Convert to sRGB components in 0-255 range
-        let fg = [fgRGB.r * 255, fgRGB.g * 255, fgRGB.b * 255]
-        let bg = [bgRGB.r * 255, bgRGB.g * 255, bgRGB.b * 255]
+        return NSColor.apcaLc(
+            textY: NSColor.apcaScreenLuminance(red: fgRGB.r, green: fgRGB.g, blue: fgRGB.b),
+            backgroundY: NSColor.apcaScreenLuminance(red: bgRGB.r, green: bgRGB.g, blue: bgRGB.b)
+        )
+    }
 
-        // Calculate luminance for both colors
-        let yfg = sRGBtoY(fg)
-        let ybg = sRGBtoY(bg)
+    /// APCA screen luminance (Y) from sRGB components in the 0…1 range. Exposed at
+    /// component level so callers that synthesise colours numerically — the contrast
+    /// picker renders a whole field of candidates — can skip the `NSColor` round trip.
+    static func apcaScreenLuminance(red: CGFloat, green: CGFloat, blue: CGFloat) -> CGFloat {
+        let r = pow(red, 2.4)
+        let g = pow(green, 2.4)
+        let b = pow(blue, 2.4)
+        var y = 0.2126729 * r + 0.7151522 * g + 0.072175 * b
 
+        if y < 0.022 {
+            y += pow(0.022 - y, 1.414)
+        }
+        return y
+    }
+
+    /// `pow(c, 2.4)` for each of the 256 8-bit channel values — the same lookup trick as
+    /// `NSColor.linearTable`, for the same reason (see `relativeLuminance(red:green:blue:)`).
+    private static let apcaTable: [CGFloat] = (0 ... 255).map { pow(CGFloat($0) / 255, 2.4) }
+
+    /// APCA screen luminance for an 8-bit sRGB triple, via `apcaTable`.
+    static func apcaScreenLuminance(red: UInt8, green: UInt8, blue: UInt8) -> CGFloat {
+        var y = 0.2126729 * apcaTable[Int(red)]
+            + 0.7151522 * apcaTable[Int(green)]
+            + 0.072175 * apcaTable[Int(blue)]
+
+        if y < 0.022 {
+            y += pow(0.022 - y, 1.414)
+        }
+        return y
+    }
+
+    /// The signed APCA lightness contrast (Lc) between two screen luminances.
+    static func apcaLc(textY yfg: CGFloat, backgroundY ybg: CGFloat) -> CGFloat {
         var c = 1.14
 
         if ybg > yfg {
@@ -62,18 +93,6 @@ extension NSColor {
         }
 
         return c * 100
-    }
-
-    private func sRGBtoY(_ srgb: [CGFloat]) -> CGFloat {
-        let r = pow(srgb[0] / 255, 2.4)
-        let g = pow(srgb[1] / 255, 2.4)
-        let b = pow(srgb[2] / 255, 2.4)
-        var y = 0.2126729 * r + 0.7151522 * g + 0.072175 * b
-
-        if y < 0.022 {
-            y += pow(0.022 - y, 1.414)
-        }
-        return y
     }
 
     private func getAPCALevel(value: CGFloat) -> String {

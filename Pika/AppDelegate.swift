@@ -270,6 +270,10 @@ extension AppDelegate {
         notificationCenter.post(name: .toggleCompliance, object: self)
     }
 
+    @IBAction func triggerTogglePicker(_: Any) {
+        notificationCenter.post(name: .togglePicker, object: self)
+    }
+
     @IBAction func triggerHistoryPrevious(_: Any) {
         notificationCenter.post(name: .historyPrevious, object: self)
     }

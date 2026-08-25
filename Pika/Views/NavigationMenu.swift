@@ -7,6 +7,7 @@ struct NavigationMenu: View {
     @Default(.historyDrawerVisible) var historyDrawerVisible
     @Default(.showColorPreview) var showColorPreview
     @Default(.showCompliance) var showCompliance
+    @Default(.pickerDrawerVisible) var pickerDrawerVisible
 
     func isFormatDisabled(_ format: ColorFormat) -> Bool {
         if copyFormat == .swiftUI {
@@ -48,6 +49,16 @@ struct NavigationMenu: View {
             .padding(.horizontal, 6.0)
             .foregroundStyle(showCompliance ? Color.accentColor : Color.primary)
             .help("\(PikaText.textComplianceToggle) (C)")
+
+            Button(action: {
+                NSApp.sendAction(#selector(AppDelegate.triggerTogglePicker), to: nil, from: nil)
+            }, label: {
+                IconImage(name: pickerDrawerVisible ? "circle.hexagongrid.fill" : "circle.hexagongrid")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .padding(.horizontal, 6.0)
+            .foregroundStyle(pickerDrawerVisible ? Color.accentColor : Color.primary)
+            .help("\(PikaText.textPickerToggle) (A)")
 
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.25)) {
@@ -101,6 +112,10 @@ struct NavigationMenu: View {
                     NSApp.sendAction(#selector(AppDelegate.triggerToggleCompliance), to: nil, from: nil)
                 })
                 .keyboardShortcut("c", modifiers: [])
+                Button(PikaText.textPickerToggle, action: {
+                    NSApp.sendAction(#selector(AppDelegate.triggerTogglePicker), to: nil, from: nil)
+                })
+                .keyboardShortcut("a", modifiers: [])
             }
             .opacity(0)
             .frame(width: 0, height: 0)

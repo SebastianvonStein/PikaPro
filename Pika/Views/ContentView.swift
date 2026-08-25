@@ -5,13 +5,15 @@ import UniformTypeIdentifiers
 
 /// Height thresholds (in points of available window content height) below which each
 /// element is shed, so the window can shrink far smaller than the sum of everything.
-/// Ordered largest-first to match the shed order: palettes drop first, then contrast,
-/// preview, and colour names. Type labels are the last to go, but they hide only via the
+/// Ordered largest-first to match the shed order: the contrast picker drops first, then
+/// palettes, contrast, preview, and colour names. Type labels are the last to go, but they hide only via the
 /// preview-pill overlap — the window floor (160) sits above any useful height threshold
 /// for them. These are the tuning knobs for the adaptive layout.
 enum PikaAdaptiveHeight {
     static let floor: CGFloat = 160 // bare minimum content height (matches window frame min ≈ 200pt window)
     static let expandCornerBelow: CGFloat = 200 // below this content height (~240pt window) the button tucks top-right
+    static let picker: CGFloat = 390 // contrast picker drawer
+    static let pickerDrawer: CGFloat = 137 // the picker drawer's own height, when stacked with palettes
     static let palettes: CGFloat = 300 // history drawer (~74pt)
     static let contrast: CGFloat = 250 // compliance footer (~50pt)
     static let preview: CGFloat = 200 // preview pill
@@ -26,6 +28,8 @@ enum PikaAdaptiveWidth {
     // they appear/disappear together — different values read as a bug.
     static let palettes: CGFloat = 410
     static let contrast: CGFloat = 410
+    static let picker: CGFloat = 380 // contrast picker field
+    static let pickerReadout: CGFloat = 460 // colour/ratio readout in the picker toolbar
     static let preview: CGFloat = 420 // preview pill
 }
 
@@ -57,6 +61,7 @@ struct ContentView: View {
     @Default(.historyDrawerVisible) var historyDrawerVisible
     @Default(.showColorPreview) var showColorPreview
     @Default(.showCompliance) var showCompliance
+    @Default(.pickerDrawerVisible) var pickerDrawerVisible
     @Default(.appMode) var appMode
     @Default(.palettes) var palettes
     @Default(.activePaletteIndex) var activePaletteIndex
@@ -87,6 +92,16 @@ struct ContentView: View {
             width = max(width, PikaAdaptiveWidth.palettes)
             height = max(height, PikaAdaptiveHeight.palettes)
         }
+        if pickerDrawerVisible {
+            width = max(width, PikaAdaptiveWidth.picker)
+            // The picker and the palette drawer stack, so together they need the picker's
+            // threshold *plus* the drawer's own height — the same sum `allowPicker` tests,
+            // or expanding would land just short and leave the picker still hidden.
+            height = max(
+                height,
+                PikaAdaptiveHeight.picker + (historyDrawerVisible ? PikaAdaptiveHeight.pickerDrawer : 0)
+            )
+        }
         return CGSize(width: width + margin, height: height + margin)
     }
 
@@ -106,6 +121,10 @@ struct ContentView: View {
             let allowContrastWidth = width >= PikaAdaptiveWidth.contrast
             let allowContrast = allowContrastHeight && allowContrastWidth
             let allowPalettes = height >= PikaAdaptiveHeight.palettes && width >= PikaAdaptiveWidth.palettes
+            // The picker needs its own room on top of the palettes drawer when both are on.
+            let pickerHeightNeeded = PikaAdaptiveHeight.picker
+                + (historyDrawerVisible && allowPalettes ? PikaAdaptiveHeight.pickerDrawer : 0)
+            let allowPicker = height >= pickerHeightNeeded && width >= PikaAdaptiveWidth.picker
             // The preview pill overlaps the type labels, so labels only show when the
             // pill is effectively hidden.
             let previewVisible = showColorPreview && allowPreview
@@ -115,6 +134,7 @@ struct ContentView: View {
             let suppressed = (showColorPreview && !allowPreview)
                 || (showCompliance && !allowContrast)
                 || (historyDrawerVisible && !allowPalettes)
+                || (pickerDrawerVisible && !allowPicker)
             // Always tuck the expand affordance into the top-right corner so it never sits
             // on top of the colour values.
             let expandAlignment: Alignment = .topTrailing
@@ -187,6 +207,14 @@ struct ContentView: View {
                     )
                     .transition(.move(edge: .bottom))
                 }
+                if pickerDrawerVisible, allowPicker {
+                    ContrastPickerDrawer(
+                        foreground: eyedroppers.foreground,
+                        background: eyedroppers.background,
+                        showsReadout: width >= PikaAdaptiveWidth.pickerReadout
+                    )
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
                 if historyDrawerVisible, allowPalettes {
                     ColorHistoryDrawer(foreground: eyedroppers.foreground, background: eyedroppers.background)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -211,6 +239,7 @@ struct ContentView: View {
             .animation(.easeInOut(duration: 0.2), value: allowContrastHeight)
             .animation(.easeInOut(duration: 0.2), value: allowContrastWidth)
             .animation(.easeInOut(duration: 0.2), value: allowPalettes)
+            .animation(.easeInOut(duration: 0.2), value: allowPicker)
             .animation(.easeInOut(duration: 0.15), value: suppressed)
             .animation(.easeInOut(duration: 0.15), value: isHovering)
         }
@@ -240,6 +269,11 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: .toggleCompliance)) { _ in
             withAnimation(.easeInOut(duration: 0.25)) {
                 showCompliance.toggle()
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .togglePicker)) { _ in
+            withAnimation(.easeInOut(duration: 0.25)) {
+                pickerDrawerVisible.toggle()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .historyPrevious)) { _ in

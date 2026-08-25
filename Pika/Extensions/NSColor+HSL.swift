@@ -7,6 +7,7 @@ import Defaults
 
 public struct HSBComponents { let h, s, b: CGFloat }
 public struct HSLComponents { let h, s, l: CGFloat }
+public struct RGBComponents { let r, g, b: CGFloat }
 
 extension NSColor {
     /*
@@ -112,6 +113,39 @@ extension NSColor {
         }
 
         return HSLComponents(h: h, s: s, l: l)
+    }
+
+    /**
+     The inverse of `toHSLComponents()`: sRGB components for a hue/saturation/lightness
+     triple, each in the 0…1 range. Returned as raw components rather than an `NSColor`
+     because the contrast picker walks an entire field of these per redraw.
+     */
+    public static func fromHSLComponents(h: CGFloat, s: CGFloat, l: CGFloat) -> RGBComponents {
+        guard s > 0 else { return RGBComponents(r: l, g: l, b: l) }
+
+        let c = (1 - abs(2 * l - 1)) * s
+        let hue = h - h.rounded(.down) // wrap into 0..<1
+        let sector = hue * 6
+        let x = c * (1 - abs(sector.truncatingRemainder(dividingBy: 2) - 1))
+        let m = l - c / 2
+
+        let rgb: (CGFloat, CGFloat, CGFloat)
+        switch sector {
+        case ..<1: rgb = (c, x, 0)
+        case ..<2: rgb = (x, c, 0)
+        case ..<3: rgb = (0, c, x)
+        case ..<4: rgb = (0, x, c)
+        case ..<5: rgb = (x, 0, c)
+        default: rgb = (c, 0, x)
+        }
+
+        return RGBComponents(r: rgb.0 + m, g: rgb.1 + m, b: rgb.2 + m)
+    }
+
+    /// An sRGB colour for a hue/saturation/lightness triple, each in the 0…1 range.
+    public static func fromHSL(h: CGFloat, s: CGFloat, l: CGFloat) -> NSColor {
+        let rgb = fromHSLComponents(h: h, s: s, l: l)
+        return NSColor(srgbRed: rgb.r, green: rgb.g, blue: rgb.b, alpha: 1)
     }
 
     /**

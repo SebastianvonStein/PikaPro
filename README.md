@@ -25,6 +25,7 @@ brew install --cask pika
 - System color picker integration
 - Undo/redo functionality
 - Color swapping capabilities
+- Contrast picker: choose a foreground from a colour field with non-compliant colours masked out
 
 ## Learn More
 
@@ -68,6 +69,7 @@ Pika supports the following keyboard shortcuts:
 | Actions | <kbd>H</kbd> | Toggle history |
 | Actions | <kbd>C</kbd> | Toggle compliance |
 | Actions | <kbd>P</kbd> | Toggle colour preview |
+| Actions | <kbd>A</kbd> | Toggle contrast picker |
 | Actions | <kbd>⌘ Z</kbd> | Undo last pick |
 | Actions | <kbd>⌘ ⇧ Z</kbd> | Redo last pick |
 | Actions | <kbd>⌘ ,</kbd> | Preferences |
@@ -115,6 +117,9 @@ When picking or copying, you can append a format to the URL — `<format>` is on
 | Preview | `pika://preview/show` | Show colour preview |
 | Preview | `pika://preview/hide` | Hide colour preview |
 | Preview | `pika://preview/toggle` | Toggle colour preview |
+| Contrast Picker | `pika://picker/show` | Show the contrast picker |
+| Contrast Picker | `pika://picker/hide` | Hide the contrast picker |
+| Contrast Picker | `pika://picker/toggle` | Toggle the contrast picker |
 | Windows | `pika://window/about` | Open About |
 | Windows | `pika://window/help` | Open Help |
 | Windows | `pika://window/preferences` | Open Preferences |

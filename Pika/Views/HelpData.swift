@@ -31,6 +31,7 @@ let shortcutGroups: [ShortcutGroup] = [
         ShortcutEntry(title: PikaText.textHistoryToggle, keys: ["H"], notificationName: .toggleHistory),
         ShortcutEntry(title: PikaText.textComplianceToggle, keys: ["C"], notificationName: .toggleCompliance),
         ShortcutEntry(title: PikaText.textColorPreviewToggle, keys: ["P"], notificationName: .toggleColorPreview),
+        ShortcutEntry(title: PikaText.textPickerToggle, keys: ["A"], notificationName: .togglePicker),
         ShortcutEntry(title: PikaText.textColorUndo, keys: ["⌘", "Z"], notificationName: .triggerUndo),
         ShortcutEntry(title: PikaText.textColorRedo, keys: ["⇧", "⌘", "Z"], notificationName: .triggerRedo),
         ShortcutEntry(title: "\(PikaText.textMenuPreferences)…", keys: ["⌘", ","], notificationName: .triggerPreferences),
@@ -94,6 +95,11 @@ let urlGroups: [URLGroup] = [
         ("pika://preview/show", PikaText.textUrlPreviewShow),
         ("pika://preview/hide", PikaText.textUrlPreviewHide),
         ("pika://preview/toggle", PikaText.textUrlPreviewToggle),
+    ]),
+    (PikaText.textUrlGroupPicker, [
+        ("pika://picker/show", PikaText.textUrlPickerShow),
+        ("pika://picker/hide", PikaText.textUrlPickerHide),
+        ("pika://picker/toggle", PikaText.textUrlPickerToggle),
     ]),
     (PikaText.textUrlGroupWindow, [
         ("pika://window/about", PikaText.textUrlWindowAbout),

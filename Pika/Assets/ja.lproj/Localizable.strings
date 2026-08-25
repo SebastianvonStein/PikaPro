@@ -572,3 +572,30 @@
 
 /* Window Settings */
 "preferences.window.title" = "ウインドウ設定";
+
+/* Toggle contrast picker */
+"picker.toggle" = "コントラストピッカーの表示切り替え";
+
+/* Contrast Picker */
+"picker.title" = "コントラストピッカー";
+
+/* Show compliance overlay */
+"picker.overlay" = "適合オーバーレイを表示";
+
+/* Restrict to compliant colours */
+"picker.restrict" = "適合する色のみに制限";
+
+/* Saturation */
+"picker.saturation" = "彩度";
+
+/* Show the contrast picker */
+"help.url.picker.show" = "コントラストピッカーを表示";
+
+/* Hide the contrast picker */
+"help.url.picker.hide" = "コントラストピッカーを非表示";
+
+/* Toggle the contrast picker */
+"help.url.picker.toggle" = "コントラストピッカーの表示切り替え";
+
+/* Contrast Picker */
+"help.url.group.picker" = "コントラストピッカー";

@@ -37,6 +37,7 @@ final class URLSchemeHandler: NSObject {
         case "appearance": handleAppearance(task: task)
         case "compliance": handleCompliance(task: task)
         case "preview": handlePreview(task: task)
+        case "picker": handlePicker(task: task)
         case "seed": handleSeed(url: url)
         case "swap": NSApp.sendAction(#selector(AppDelegate.triggerSwap), to: nil, from: nil)
         case "undo": NSApp.sendAction(#selector(AppDelegate.triggerUndo), to: nil, from: nil)
@@ -138,6 +139,15 @@ final class URLSchemeHandler: NSObject {
         case "show" where !Defaults[.showColorPreview]: Defaults[.showColorPreview] = true
         case "hide" where Defaults[.showColorPreview]: Defaults[.showColorPreview] = false
         case "toggle": Defaults[.showColorPreview].toggle()
+        default: break
+        }
+    }
+
+    private func handlePicker(task: String?) {
+        switch task {
+        case "show" where !Defaults[.pickerDrawerVisible]: Defaults[.pickerDrawerVisible] = true
+        case "hide" where Defaults[.pickerDrawerVisible]: Defaults[.pickerDrawerVisible] = false
+        case "toggle": Defaults[.pickerDrawerVisible].toggle()
         default: break
         }
     }

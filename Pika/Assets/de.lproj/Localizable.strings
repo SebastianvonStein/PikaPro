@@ -572,3 +572,30 @@
 
 /* Window Settings */
 "preferences.window.title" = "Fenstereinstellungen";
+
+/* Toggle contrast picker */
+"picker.toggle" = "Kontrastauswahl ein-/ausblenden";
+
+/* Contrast Picker */
+"picker.title" = "Kontrastauswahl";
+
+/* Show compliance overlay */
+"picker.overlay" = "Konformitäts-Overlay anzeigen";
+
+/* Restrict to compliant colours */
+"picker.restrict" = "Auf konforme Farben beschränken";
+
+/* Saturation */
+"picker.saturation" = "Sättigung";
+
+/* Show the contrast picker */
+"help.url.picker.show" = "Kontrastauswahl anzeigen";
+
+/* Hide the contrast picker */
+"help.url.picker.hide" = "Kontrastauswahl ausblenden";
+
+/* Toggle the contrast picker */
+"help.url.picker.toggle" = "Kontrastauswahl umschalten";
+
+/* Contrast Picker */
+"help.url.group.picker" = "Kontrastauswahl";

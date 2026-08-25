@@ -572,3 +572,30 @@
 
 /* Window Settings */
 "preferences.window.title" = "窗口设置";
+
+/* Toggle contrast picker */
+"picker.toggle" = "切换对比度选择器";
+
+/* Contrast Picker */
+"picker.title" = "对比度选择器";
+
+/* Show compliance overlay */
+"picker.overlay" = "显示合规遮罩";
+
+/* Restrict to compliant colours */
+"picker.restrict" = "仅限合规颜色";
+
+/* Saturation */
+"picker.saturation" = "饱和度";
+
+/* Show the contrast picker */
+"help.url.picker.show" = "显示对比度选择器";
+
+/* Hide the contrast picker */
+"help.url.picker.hide" = "隐藏对比度选择器";
+
+/* Toggle the contrast picker */
+"help.url.picker.toggle" = "切换对比度选择器";
+
+/* Contrast Picker */
+"help.url.group.picker" = "对比度选择器";

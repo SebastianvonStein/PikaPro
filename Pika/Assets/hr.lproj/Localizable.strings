@@ -572,3 +572,30 @@
 
 /* Window Settings */
 "preferences.window.title" = "Postavke prozora";
+
+/* Toggle contrast picker */
+"picker.toggle" = "Prikaži/sakrij birač kontrasta";
+
+/* Contrast Picker */
+"picker.title" = "Birač kontrasta";
+
+/* Show compliance overlay */
+"picker.overlay" = "Prikaži sloj usklađenosti";
+
+/* Restrict to compliant colours */
+"picker.restrict" = "Ograniči na usklađene boje";
+
+/* Saturation */
+"picker.saturation" = "Zasićenje";
+
+/* Show the contrast picker */
+"help.url.picker.show" = "Prikaži birač kontrasta";
+
+/* Hide the contrast picker */
+"help.url.picker.hide" = "Sakrij birač kontrasta";
+
+/* Toggle the contrast picker */
+"help.url.picker.toggle" = "Uključi/isključi birač kontrasta";
+
+/* Contrast Picker */
+"help.url.group.picker" = "Birač kontrasta";

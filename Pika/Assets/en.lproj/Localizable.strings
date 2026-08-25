@@ -578,3 +578,30 @@
 
 /* Restore system appearance */
 "help.url.appearance.system" = "Restore system appearance";
+
+/* Toggle contrast picker */
+"picker.toggle" = "Toggle contrast picker";
+
+/* Contrast Picker */
+"picker.title" = "Contrast Picker";
+
+/* Show compliance overlay */
+"picker.overlay" = "Show compliance overlay";
+
+/* Restrict to compliant colours */
+"picker.restrict" = "Restrict to compliant colours";
+
+/* Saturation */
+"picker.saturation" = "Saturation";
+
+/* Show the contrast picker */
+"help.url.picker.show" = "Show the contrast picker";
+
+/* Hide the contrast picker */
+"help.url.picker.hide" = "Hide the contrast picker";
+
+/* Toggle the contrast picker */
+"help.url.picker.toggle" = "Toggle the contrast picker";
+
+/* Contrast Picker */
+"help.url.group.picker" = "Contrast Picker";
